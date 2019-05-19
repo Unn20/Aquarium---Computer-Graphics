@@ -240,7 +240,3 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-
-# Biblioteki i Include
-/Include/*
-/Libraries/*
