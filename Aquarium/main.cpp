@@ -13,12 +13,13 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 void scrollCallback(GLFWwindow *window, double xOffset, double yOffset);
 void mouseCallback(GLFWwindow *window, double xPos, double yPos);
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -50,6 +51,7 @@ int main()
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouseCallback);
 	glfwSetScrollCallback(window, scrollCallback);
+	glfwSetMouseButtonCallback(window, mouseButtonCallback);
 
 	// tell GLFW to capture our mouse
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -210,7 +212,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void mouseCallback(GLFWwindow *window, double xPos, double yPos)
 {
-	if (firstMouse)
+	if (firstMouse )
 	{
 		lastX = xPos;
 		lastY = yPos;
@@ -229,4 +231,18 @@ void mouseCallback(GLFWwindow *window, double xPos, double yPos)
 void scrollCallback(GLFWwindow *window, double xOffset, double yOffset)
 {
 	camera.ProcessMouseScroll(yOffset);
+}
+
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		camera.EnableCamera = true;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else
+	{
+		camera.EnableCamera = false;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 }

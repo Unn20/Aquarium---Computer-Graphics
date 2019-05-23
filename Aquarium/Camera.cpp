@@ -45,18 +45,25 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
 	xoffset *= MouseSensitivity;
 	yoffset *= MouseSensitivity;
 
-	Yaw += xoffset;
-	Pitch += yoffset;
-
+	if (EnableCamera)
+	{
+		Yaw += xoffset;
+		Pitch += yoffset;
+	}
+	
 	// Make sure that when pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch)
 	{
-		if (Pitch > 89.0f)
+		if (Pitch >= 89.0f)
 			Pitch = 89.0f;
-		if (Pitch < -89.0f)
-			Pitch = -89.0f;
+		if (Pitch <= 1.0f)
+			Pitch = 1.0f;
+		//if (Yaw >= 180.0f)
+		//	Yaw = 180.0f;
+		//if (Yaw <= 1.0f)
+		//	Yaw = 1.0f;
 	}
-
+	
 	// Update Front, Right and Up Vectors using the updated Euler angles
 	updateCameraVectors();
 }
@@ -74,11 +81,15 @@ void Camera::ProcessMouseScroll(float yoffset)
 
 void Camera::updateCameraVectors()
 {
-	// Calculate the new Front vector
+	
+	float Radius = 3.0f;
 	glm::vec3 front;
-	front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-	front.y = sin(glm::radians(Pitch));
-	front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+	Position.x = Radius * cos(glm::radians(Pitch)) * sin(glm::radians(Yaw));
+	Position.y = Radius * sin(glm::radians(Pitch));
+	Position.z = Radius * cos(glm::radians(Pitch)) * cos(glm::radians(Yaw));
+	front.x = -Position.x / Radius;
+	front.y = -Position.y / Radius;
+	front.z = -Position.z / Radius;
 	Front = glm::normalize(front);
 	// Also re-calculate the Right and Up vector
 	Right = glm::normalize(glm::cross(Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
