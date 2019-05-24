@@ -12,11 +12,11 @@
 class Shader
 {
 private:
+	unsigned int ID;
 	// utility function for checking shader compilation/linking errors.
 	void checkCompileErrors(unsigned int shader, std::string type);
 
 public:
-	unsigned int ID;
 	// constructor generates the shader on the fly
 	Shader(const char* vertexPath, const char* fragmentPath);
 	// activate the shader
@@ -34,6 +34,5 @@ public:
 	void setMat2(const std::string &name, const glm::mat2 &mat) const;
 	void setMat3(const std::string &name, const glm::mat3 &mat) const;
 	void setMat4(const std::string &name, const glm::mat4 &mat) const;
-
 };
 #endif
