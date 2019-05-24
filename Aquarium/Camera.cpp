@@ -1,21 +1,23 @@
 #include "Camera.h"
 
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch, float radius) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), Radius(RADIUS)
 {
 	Position = position;
 	WorldUp = up;
 	Yaw = yaw;
 	Pitch = pitch;
+	Radius = radius;
 	updateCameraVectors();
 }
 // Constructor with scalar values
-Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch, float radius) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM), Radius(RADIUS)
 {
 	Position = glm::vec3(posX, posY, posZ);
 	WorldUp = glm::vec3(upX, upY, upZ);
 	Yaw = yaw;
 	Pitch = pitch;
+	Radius = radius;
 	updateCameraVectors();
 }
 
@@ -50,7 +52,7 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
 		Yaw += xoffset;
 		Pitch += yoffset;
 	}
-	
+
 	// Make sure that when pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch)
 	{
@@ -81,8 +83,6 @@ void Camera::ProcessMouseScroll(float yoffset)
 
 void Camera::updateCameraVectors()
 {
-	
-	float Radius = 3.0f;
 	glm::vec3 front;
 	Position.x = Radius * cos(glm::radians(Pitch)) * sin(glm::radians(Yaw));
 	Position.y = Radius * sin(glm::radians(Pitch));
@@ -94,4 +94,9 @@ void Camera::updateCameraVectors()
 	// Also re-calculate the Right and Up vector
 	Right = glm::normalize(glm::cross(Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 	Up = glm::normalize(glm::cross(Right, Front));
+}
+
+float Camera::getZoom()
+{
+	return this->Zoom;
 }

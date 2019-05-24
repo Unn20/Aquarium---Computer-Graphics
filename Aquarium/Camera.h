@@ -6,13 +6,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
-#include <iostream>
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
 const float SPEED = 2.5f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
+const float RADIUS = 6.0f;
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -25,8 +25,7 @@ enum Camera_Movement {
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class Camera
 {
-public:
-	// Camera Attributes
+private:
 	glm::vec3 Position;
 	glm::vec3 Front;
 	glm::vec3 Up;
@@ -39,13 +38,18 @@ public:
 	float MovementSpeed;
 	float MouseSensitivity;
 	float Zoom;
+	float Radius = 6.0f;
+	// Calculates the front vector from the Camera's (updated) Euler Angles
+	void updateCameraVectors();
 
-	bool EnableCamera;
+public:
+	// Camera Attributes
+	bool EnableCamera; //Enables Camera, used with button on mouse
 
 	// Constructor with vectors
-	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
+	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH, float radius = RADIUS);
 	// Constructor with scalar values
-	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
+	Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch, float radius);
 
 	// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 	glm::mat4 GetViewMatrix();
@@ -59,8 +63,7 @@ public:
 	// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
 	void ProcessMouseScroll(float yoffset);
 
-private:
-	// Calculates the front vector from the Camera's (updated) Euler Angles
-	void updateCameraVectors();
+	//Get Camera.Zoom attribute
+	float getZoom();
 };
 #endif
