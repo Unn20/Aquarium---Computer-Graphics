@@ -64,6 +64,8 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
 		//	Yaw = 180.0f;
 		//if (Yaw <= 1.0f)
 		//	Yaw = 1.0f;
+		if (Yaw >= 360.0f || Yaw <= -360.f)
+			Yaw = 0.0f;
 	}
 	
 	// Update Front, Right and Up Vectors using the updated Euler angles
