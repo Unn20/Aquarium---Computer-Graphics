@@ -16,6 +16,12 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{4964ea6e-90bc-43a7-9043-7102d930ea92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{5fbd5810-6e16-457b-aa73-b4b6036c3ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Floor">
+      <UniqueIdentifier>{43620f20-d61a-488e-b672-6d794636aabf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -55,5 +61,10 @@
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\sand.jpg">
+      <Filter>Resource Files\Textures\Floor</Filter>
+    </Image>
   </ItemGroup>
 </Project>
