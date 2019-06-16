@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Fish.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,10 +144,13 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Renderable.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Textures\clownfish.jpg" />
+    <Image Include="Textures\gravel.jpg" />
     <Image Include="Textures\sand.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

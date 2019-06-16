@@ -1,5 +1,7 @@
 #include "Floor.h"
 
+#include "stb_image.h"
+
 
 Floor::Floor() : Length(LENGTH), Width(WIDTH)
 {
@@ -40,11 +42,14 @@ Floor::Floor() : Length(LENGTH), Width(WIDTH)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	//Choose texture of floor which may be loaded
-	TextureNumber TextureNo = sand;
+	Texture_Number TextureNo = sand;
 	switch (TextureNo)
 	{
 	case sand:
 		data = stbi_load("Textures/sand.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
+		break;
+	case sand2:
+		data = stbi_load("Textures/gravel.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
 		break;
 	default:
 		break;
@@ -74,12 +79,12 @@ Floor::~Floor()
 
 void Floor::draw(Shader *sp)
 {
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture);
 	sp->use();
 	Model = glm::mat4(1.0f);
 	Model = glm::scale(Model, glm::vec3((float)Length, 1.0f, (float)Width));
 	sp->setMat4("model", Model);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture);
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

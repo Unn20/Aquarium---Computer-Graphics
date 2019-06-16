@@ -22,22 +22,37 @@
     <Filter Include="Resource Files\Textures\Floor">
       <UniqueIdentifier>{43620f20-d61a-488e-b672-6d794636aabf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Renderables">
+      <UniqueIdentifier>{3cdfb4b0-ba28-402b-90c5-2647a4c37a03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{a21f4067-bc03-4da1-b439-2e6f810da654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures\Fish">
+      <UniqueIdentifier>{5798bb4e-e1d4-4aa3-a2b3-b718e9196bfd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Floor.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fish.cpp">
+      <Filter>Source Files\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Source Files\Renderables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,10 +76,19 @@
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\sand.jpg">
       <Filter>Resource Files\Textures\Floor</Filter>
+    </Image>
+    <Image Include="Textures\gravel.jpg">
+      <Filter>Resource Files\Textures\Floor</Filter>
+    </Image>
+    <Image Include="Textures\clownfish.jpg">
+      <Filter>Resource Files\Textures\Fish</Filter>
     </Image>
   </ItemGroup>
 </Project>

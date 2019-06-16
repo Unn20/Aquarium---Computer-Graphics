@@ -6,12 +6,14 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
-#include "stb_image.h"
+
 
 const int LENGTH = 10;	//Length of floor object
 const int WIDTH = 10;	//Width of floor object
 const unsigned int VERTEXCOUNT = 4;	//Number of Vertices
 const unsigned int INDEXCOUNT = 6;	//Number of Indices
+
+
 
 class Floor
 {
@@ -31,9 +33,11 @@ private:
 	unsigned char *data;
 	int TextureWidth, TextureHeight, nrChannels;
 	unsigned int Texture;
-	enum TextureNumber
+
+	enum Texture_Number
 	{
-		sand
+		sand,
+		sand2
 	};
 
 public:

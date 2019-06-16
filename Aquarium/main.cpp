@@ -5,10 +5,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+#include <vector>
 
 #include "Shader.h"
 #include "Camera.h"
 #include "Floor.h"
+#include "Renderable.h"
+#include "stb_image.h"
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -23,6 +26,9 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 Shader *ourShader;
 Floor *podloga_w;
+Renderable *object;
+std::vector<Renderable*> table;
+
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -40,13 +46,17 @@ void initOpenGLProgram(GLFWwindow *window)
 	glfwSetScrollCallback(window, scrollCallback);
 	glfwSetMouseButtonCallback(window, mouseButtonCallback);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); // tell GLFW to capture our mouse
-	ourShader = new Shader("vertex.glsl", "fragment.glsl"); // build and compile our shader program
 }
 
 void freeOpenGLProgram(GLFWwindow *window)
 {
-	delete ourShader;
 	glfwDestroyWindow(window);
+	for (int i = 0; i < 10; i++)
+	{ 
+		Renderable *r = table.back();
+		table.pop_back();
+		delete r;
+	}
 }
 
 void drawScene(GLFWwindow *window)
@@ -55,20 +65,24 @@ void drawScene(GLFWwindow *window)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	ourShader->use();
-
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
 	view = camera.GetViewMatrix();
 	projection = glm::perspective(glm::radians(camera.getZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-
 	ourShader->setMat4("view", view);
 	ourShader->setMat4("projection", projection);
 
 	podloga_w->draw(ourShader);
 
+	for (int i = 0; i < 10; i++)
+	{
+		object = table[i];
+		object->behave();
+		object->draw(ourShader);
+	}
+
 	glfwSwapBuffers(window);
 }
-
 
 int main()
 {
@@ -91,8 +105,17 @@ int main()
 	}
 	initOpenGLProgram(window);
 
+	Shader shader("vertex.glsl", "fragment.glsl");
+	ourShader = &shader;
+
 	Floor podloga;
 	podloga_w = &podloga;
+
+	for (int i = 0; i < 10; i++)
+	{
+		Fish *rryba = new Fish("random");
+		table.push_back(rryba);
+	}
 
 	while (!glfwWindowShouldClose(window))
 	{
