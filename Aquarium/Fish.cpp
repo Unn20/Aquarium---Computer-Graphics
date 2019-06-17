@@ -21,7 +21,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 		sx = scale;  sy = scale; sz = scale;
 		Velocity = 0.01f;
 	}
-	Moving = false;
+	steps = 0;
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -81,35 +81,28 @@ void Fish::draw(Shader *sp)
 
 void Fish::behave()
 {
-	//to jeszcze nie dziala jak nalezy
-
-
-
-	/*
-	if (!Moving)
+	if (steps == 0)
 	{
+		//Sleep(random(10, 100));
 		wantToGo = glm::vec3(random(-MAX_X, MAX_X), random(1.0f, 2.0f), random(-MAX_Z, MAX_Z));
-		Moving = true;
-	}
-	Moving = move(wantToGo);
-	std::cout << "My positon: " << x << "," << y << "," << z << std::endl;
-	*/
-}
-
-bool Fish::move(glm::vec3 coordinates)
-{
-	/*
-	if (distance(glm::vec3(x, y, z), coordinates) > distance(glm::vec3(x + velocity, y + velocity, z + velocity), coordinates) )
-	{
-		x = x + velocity;
-		y = y + velocity;
-		z = y + velocity;
-		return true;
+		steps = round(distance(wantToGo, glm::vec3(x, y, z)) / Velocity);
+		std::cout << "Want to go: " << wantToGo.x << ", " << wantToGo.y << ", " << wantToGo.z << std::endl;
 	}
 	else
-		return false;
-		*/
-	return true;
+	{
+		move(wantToGo);
+		steps--;
+	}
+	
+}
+
+void Fish::move(glm::vec3 coordinates)
+{
+	float dist = distance(coordinates, glm::vec3(x, y, z));
+	x += (coordinates.x - x) / dist * Velocity;
+	y += (coordinates.y - y) / dist * Velocity;
+	z += (coordinates.z - z) / dist * Velocity;
+
 }
 
 

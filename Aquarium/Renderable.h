@@ -10,9 +10,6 @@
 
 #include "Shader.h"
 
-
-
-
 extern std::mt19937 gen;
 
 //Maximum area where "renderables" may move
@@ -66,11 +63,9 @@ public:
 	float Velocity;
 	unsigned int VAO, VBO;
 
-	bool Moving;
-	glm::vec3 wantToGo;
-	float time0;
-	float neededTime;
-	
+	glm::vec3 wantToGo; //for move
+	//int rsteps;
+	int steps; //for move
 
 	//Fish();
 	Fish(std::string _s = "norandom", glm::vec3 initialPosition = glm::vec3(1.0f, 1.0f, 1.0f), 
@@ -79,7 +74,7 @@ public:
 
 	void draw(Shader *sp);
 	void behave();
-	bool move(glm::vec3 coordinates);
+	void move(glm::vec3 coordinates);
 };
 
 
