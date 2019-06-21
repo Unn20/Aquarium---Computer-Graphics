@@ -17,17 +17,31 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	{
 		x = random(-MAX_X, MAX_X); y = random(1.0f, MAX_Y); z = random(-MAX_Z, MAX_Z);
 		rx = random(0.0f, 360.0f); ry = random(0.0f, 360.0f); rz = random(0.0f, 360.0f);
-		float scale = random(0.01f, 0.2f);
+		//float scale = random(0.01f, 0.2f);
+		float scale = 1.0f;
 		sx = scale;  sy = scale; sz = scale;
 		Velocity = 0.01f;
 	}
 	steps = 0;
 
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
+	std::vector< glm::vec3 > vertices;
+	std::vector< glm::vec2 > uvs;
+	std::vector< glm::vec3 > normals; // Won't be used at the moment.
+	bool res = loadOBJ("RYBA/fish.obj", vertices, uvs, normals);
 
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(2, &VBO[0]);
 	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 	glBufferData(GL_ARRAY_BUFFER, 288 * sizeof(float), Vertices, GL_DYNAMIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
@@ -47,7 +61,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	TextureData = stbi_load("Textures/clownfish.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
+	TextureData = stbi_load("Textures/fish_texture.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
 	if (TextureData)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureData);
@@ -67,7 +81,7 @@ Fish::~Fish()
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(2, VBO);
 }
 
 void Fish::draw(Shader *sp)

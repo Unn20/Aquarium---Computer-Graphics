@@ -43,6 +43,10 @@ public:
 	virtual ~Renderable() = 0;
 	virtual void draw(Shader *sp) = 0;
 	virtual void behave() = 0;
+	virtual bool loadOBJ(const char * path,
+		std::vector < glm::vec3 > & out_vertices,
+		std::vector < glm::vec2 > & out_uvs,
+		std::vector < glm::vec3 > & out_normals);
 
 	
 };
@@ -63,7 +67,7 @@ class Fish : public Renderable
 {
 private:
 	float Velocity;
-	unsigned int VAO, VBO;
+	unsigned int VAO, VBO[2];
 
 	glm::vec3 wantToGo; //for move
 	//int rsteps;
