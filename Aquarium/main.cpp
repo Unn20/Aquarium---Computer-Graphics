@@ -94,6 +94,8 @@ void drawScene(GLFWwindow *window)
 		object->draw(dShader);
 	}
 
+	
+
 	glfwSwapBuffers(window);
 }
 
