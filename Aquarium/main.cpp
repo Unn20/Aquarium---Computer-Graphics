@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 
+#include "Lights.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "Floor.h"
@@ -24,11 +25,13 @@ void scrollCallback(GLFWwindow *window, double xOffset, double yOffset);
 void mouseCallback(GLFWwindow *window, double xPos, double yPos);
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-Shader *ourShader;
+Camera camera(glm::vec3(0.0f, 0.1f, 3.0f));
+Shader *lightPosShader, *dShader;
 Floor *podloga_w;
 Renderable *object;
 std::vector<Renderable*> table;
+DirLight *lightDir;
+SpotLight *lightSpot;
 
 int objNum = 50;
 
@@ -68,21 +71,30 @@ void drawScene(GLFWwindow *window)
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	ourShader->use();
+	dShader->use();
+	dShader->setVec3("viewPos", camera.getPosition());
+	dShader->setFloat("material.shininess", 32.0f);
+
+	lightDir->apply(dShader);
+	lightSpot->apply(dShader);
+
+	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
 	view = camera.GetViewMatrix();
 	projection = glm::perspective(glm::radians(camera.getZoom()), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-	ourShader->setMat4("view", view);
-	ourShader->setMat4("projection", projection);
 
-	podloga_w->draw(ourShader);
+	dShader->setMat4("view", view);
+	dShader->setMat4("projection", projection);
+	dShader->setMat4("model", model);
+
+	podloga_w->draw(dShader);
 
 	for (int i = 0; i < objNum; i++)
 	{
 		object = table[i];
 		object->behave();
-		object->draw(ourShader);
+		object->draw(dShader);
 	}
 
 	glfwSwapBuffers(window);
@@ -109,17 +121,30 @@ int main()
 	}
 	initOpenGLProgram(window);
 
-	Shader shader("vertex.glsl", "fragment.glsl");
-	ourShader = &shader;
+	Shader lightShader("normal.vs", "normal.fs");
+	Shader defaultShader("lightEffects.vs", "lightEffects.fs");
+	lightPosShader = &lightShader;
+	dShader = &defaultShader;
 
 	Floor podloga;
 	podloga_w = &podloga;
+
+	DirLight light123;
+	lightDir = &light123;
+
+	SpotLight light321;
+	lightSpot = &light321;
+
 
 	for (int i = 0; i < objNum; i++)
 	{
 		Fish *rryba = new Fish("random");
 		table.push_back(rryba);
 	}
+
+	dShader->use();
+	dShader->setInt("material.diffuse", 0);
+	dShader->setInt("material.specular", 1);
 
 	while (!glfwWindowShouldClose(window))
 	{

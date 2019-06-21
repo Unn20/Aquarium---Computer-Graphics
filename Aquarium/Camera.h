@@ -66,5 +66,7 @@ public:
 
 	//Get Camera.Zoom attribute
 	float getZoom();
+
+	glm::vec3 getPosition();
 };
 #endif
