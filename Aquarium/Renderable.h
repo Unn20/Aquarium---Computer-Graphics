@@ -26,14 +26,16 @@ protected:
 	float rx, ry, rz;	//rotation angle of object
 	float sx, sy, sz;	//scale of object
 
-	static float Vertices[];
-	static float Colors[];
-	static float TextureVertices[];
-	static unsigned int Indexes[];
+	//static float Vertices[];
+	//static float Colors[];
+	//static float TextureVertices[];
+	//static unsigned int Indexes[];
 
 	unsigned char *TextureData;
 	int TextureWidth, TextureHeight, nrChannels;
 	unsigned int Texture;
+
+	int VerticesNumber;
 
 	template<class T>
 		T random(T min, T max);	//Works for both int and float values
@@ -73,6 +75,8 @@ private:
 	//int rsteps;
 	int steps; //for move
 
+	
+
 public:
 	Fish(std::string _s = "norandom", glm::vec3 initialPosition = glm::vec3(1.0f, 1.0f, 1.0f), 
 		glm::vec3 initialRotation = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 initialScaling = glm::vec3(1.0f, 1.0f, 1.0f));
@@ -80,6 +84,7 @@ public:
 	void draw(Shader *sp);
 	void behave();
 	void move(glm::vec3 coordinates);
+
 };
 
 

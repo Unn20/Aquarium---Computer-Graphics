@@ -29,21 +29,29 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	std::vector< glm::vec3 > normals; // Won't be used at the moment.
 	bool res = loadOBJ("RYBA/fish.obj", vertices, uvs, normals);
 
+	VerticesNumber = vertices.size() * 3;
+
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(2, &VBO[0]);
+	glGenBuffers(2, VBO);
+
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
+
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
+
+
+	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-	glBufferData(GL_ARRAY_BUFFER, 288 * sizeof(float), Vertices, GL_DYNAMIC_DRAW);
-
+	glEnableVertexAttribArray(2);
+	
+	/*
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
@@ -51,7 +59,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	glEnableVertexAttribArray(0);
 
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(2);*/
 
 	glGenTextures(1, &Texture);
 	glBindTexture(GL_TEXTURE_2D, Texture);
@@ -97,7 +105,7 @@ void Fish::draw(Shader *sp)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture);
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDrawArrays(GL_TRIANGLES, 0, VerticesNumber);
 }
 
 void Fish::behave()
@@ -126,7 +134,7 @@ void Fish::move(glm::vec3 coordinates)
 
 }
 
-
+/*
 float Fish::Vertices[] =
 {
 	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
@@ -171,3 +179,4 @@ float Fish::Vertices[] =
 	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
 	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 };
+*/

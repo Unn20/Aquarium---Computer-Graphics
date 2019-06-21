@@ -55,7 +55,7 @@ void main()
 	vec3 result = CalcDirLight(dirLight, norm, viewDir);
 	result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
 
-	FragColor = texture(ourTexture, TexCoords) * vec4(result, 1.0);
+	FragColor = texture(ourTexture, TexCoords);// * vec4(result, 1.0);
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)

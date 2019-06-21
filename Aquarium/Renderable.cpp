@@ -71,6 +71,7 @@ bool Renderable::loadOBJ(
 				printf("File can't be read by our simple parser : ( Try exporting with other options\n");
 				return false;
 			}
+			
 			vertexIndices.push_back(vertexIndex[0]);
 			vertexIndices.push_back(vertexIndex[1]);
 			vertexIndices.push_back(vertexIndex[2]);
@@ -82,12 +83,18 @@ bool Renderable::loadOBJ(
 			normalIndices.push_back(normalIndex[2]);
 		}
 	}
-
 	for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 		unsigned int vertexIndex = vertexIndices[i];
 		glm::vec3 vertex = temp_vertices[vertexIndex - 1];
 		vertex = glm::normalize(vertex);
 		out_vertices.push_back(vertex);
+	}
+
+	for (unsigned int i = 0; i < normalIndices.size(); i++) {
+		unsigned int normalIndex = normalIndices[i];
+		glm::vec3 normal = temp_normals[normalIndex - 1];
+		normal = glm::normalize(normal);
+		out_normals.push_back(normal);
 	}
 
 	for (unsigned int i = 0; i < uvIndices.size(); i++) {
@@ -96,7 +103,7 @@ bool Renderable::loadOBJ(
 		uv = glm::normalize(uv);
 		out_uvs.push_back(uv);
 	}
-
+	
 }
 
 Renderable::~Renderable()
