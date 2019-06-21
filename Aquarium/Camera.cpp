@@ -103,4 +103,9 @@ void Camera::updateCameraVectors()
 float Camera::getZoom()
 {
 	return this->Zoom;
+
+}
+glm::vec3 Camera::getPosition()
+{
+	return this->Position;
 }

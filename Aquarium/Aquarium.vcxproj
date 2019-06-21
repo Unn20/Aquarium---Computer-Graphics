@@ -131,19 +131,23 @@
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Lights.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment.glsl" />
-    <None Include="vertex.glsl">
+    <None Include="lightEffects.fs" />
+    <None Include="lightEffects.vs">
       <FileType>Document</FileType>
     </None>
+    <None Include="normal.fs" />
+    <None Include="normal.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Lights.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
