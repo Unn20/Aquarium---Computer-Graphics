@@ -29,6 +29,7 @@ Floor *podloga_w;
 Renderable *object;
 std::vector<Renderable*> table;
 
+int objNum = 50;
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -51,7 +52,7 @@ void initOpenGLProgram(GLFWwindow *window)
 void freeOpenGLProgram(GLFWwindow *window)
 {
 	glfwDestroyWindow(window);
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < objNum; i++)
 	{ 
 		Renderable *r = table.back();
 		table.pop_back();
@@ -74,7 +75,7 @@ void drawScene(GLFWwindow *window)
 
 	podloga_w->draw(ourShader);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < objNum; i++)
 	{
 		object = table[i];
 		object->behave();
@@ -111,7 +112,7 @@ int main()
 	Floor podloga;
 	podloga_w = &podloga;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < objNum; i++)
 	{
 		Fish *rryba = new Fish("random");
 		table.push_back(rryba);

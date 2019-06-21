@@ -14,13 +14,13 @@ extern std::mt19937 gen;
 
 //Maximum area where "renderables" may move
 const float MAX_X = 16.0f;
-const float MAX_Y = 4.5f;
+const float MAX_Y = 6.5f;
 const float MAX_Z = 16.0f;
 
 
 class Renderable
 {
-public:
+protected:
 	glm::mat4 Model;
 	float x, y, z;	//position of object
 	float rx, ry, rz;	//rotation angle of object
@@ -35,14 +35,16 @@ public:
 	int TextureWidth, TextureHeight, nrChannels;
 	unsigned int Texture;
 
+	template<class T>
+		T random(T min, T max);	//Works for both int and float values
+
 public:
 	Renderable();
 	virtual ~Renderable() = 0;
 	virtual void draw(Shader *sp) = 0;
 	virtual void behave() = 0;
 
-	template<class T>
-		T random(T min, T max);	//Works for both int and float values
+	
 };
 
 template<class T>
@@ -59,7 +61,7 @@ template<class T>
 
 class Fish : public Renderable
 {
-public:
+private:
 	float Velocity;
 	unsigned int VAO, VBO;
 
@@ -67,11 +69,10 @@ public:
 	//int rsteps;
 	int steps; //for move
 
-	//Fish();
+public:
 	Fish(std::string _s = "norandom", glm::vec3 initialPosition = glm::vec3(1.0f, 1.0f, 1.0f), 
 		glm::vec3 initialRotation = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 initialScaling = glm::vec3(1.0f, 1.0f, 1.0f));
 	~Fish();
-
 	void draw(Shader *sp);
 	void behave();
 	void move(glm::vec3 coordinates);

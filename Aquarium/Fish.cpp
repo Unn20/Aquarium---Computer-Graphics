@@ -3,7 +3,7 @@
 
 Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation, glm::vec3 initialScaling)
 {
-	std::cout << "Hello fish!" << std::endl;
+	//std::cout << "Hello fish!" << std::endl;
 	Model = glm::mat4(1.0f);
 	if (_s == "norandom")
 	{
@@ -17,7 +17,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	{
 		x = random(-MAX_X, MAX_X); y = random(1.0f, MAX_Y); z = random(-MAX_Z, MAX_Z);
 		rx = random(0.0f, 360.0f); ry = random(0.0f, 360.0f); rz = random(0.0f, 360.0f);
-		float scale = random(0.1f, 0.5f);
+		float scale = random(0.01f, 0.2f);
 		sx = scale;  sy = scale; sz = scale;
 		Velocity = 0.01f;
 	}
@@ -60,7 +60,10 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 
 Fish::~Fish()
 {
-	std::cout << "Bye bye fish" << std::endl;
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(2);
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 }
 
 void Fish::draw(Shader *sp)
@@ -84,9 +87,9 @@ void Fish::behave()
 	if (steps == 0)
 	{
 		//Sleep(random(10, 100));
-		wantToGo = glm::vec3(random(-MAX_X, MAX_X), random(1.0f, 2.0f), random(-MAX_Z, MAX_Z));
+		wantToGo = glm::vec3(random(-MAX_X, MAX_X), random(1.0f, MAX_Y), random(-MAX_Z, MAX_Z));
 		steps = round(distance(wantToGo, glm::vec3(x, y, z)) / Velocity);
-		std::cout << "Want to go: " << wantToGo.x << ", " << wantToGo.y << ", " << wantToGo.z << std::endl;
+		//std::cout << "Want to go: " << wantToGo.x << ", " << wantToGo.y << ", " << wantToGo.z << std::endl;
 	}
 	else
 	{
