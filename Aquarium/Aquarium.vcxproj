@@ -133,6 +133,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Lights.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="other.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />

@@ -97,6 +97,9 @@ class Other : public Renderable
 private:
 	float location[3];
 
+public:
+	Other();
+
 };
 
 
