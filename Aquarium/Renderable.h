@@ -95,10 +95,13 @@ private:
 class Other : public Renderable
 {
 private:
+	unsigned int VAO, VBO[2];
 	float location[3];
 
 public:
-	Other();
+	Other(std::string element_s, glm::vec3 initialPosition);
+	void draw(Shader *sp);
+	void behave();
 
 };
 

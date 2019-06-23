@@ -98,9 +98,9 @@ void drawScene(GLFWwindow *window)
 		object->behave();
 		object->draw(dShader);
 	}
-
-	
-
+	// creating a treasure 
+	object = table[objNum];
+	object->draw(dShader);
 	glfwSwapBuffers(window);
 }
 
@@ -147,6 +147,9 @@ int main()
 		Fish *rryba = new Fish("random");
 		table.push_back(rryba);
 	}
+
+	Other *treasure = new Other("treasure", glm::vec3(1.0f, 1.0f, 1.0f));
+	table.push_back(treasure);
 
 	dShader->use();
 	dShader->setInt("material.diffuse", 0);
