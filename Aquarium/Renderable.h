@@ -14,7 +14,7 @@ extern std::mt19937 gen;
 
 //Maximum area where "renderables" may move
 const float MAX_X = 16.0f;
-const float MAX_Y = 6.5f;
+const float MAX_Y = 3.5f;
 const float MAX_Z = 16.0f;
 
 
