@@ -57,6 +57,9 @@
     <ClCompile Include="Lights.cpp">
       <Filter>Source Files\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Plant.cpp">
+      <Filter>Source Files\Renderables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="normal.fs">
@@ -91,6 +94,9 @@
     <ClInclude Include="Lights.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\sand.jpg">
@@ -102,5 +108,10 @@
     <Image Include="Textures\clownfish.jpg">
       <Filter>Resource Files\Textures\Fish</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Aquarium.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

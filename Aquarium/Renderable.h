@@ -75,8 +75,6 @@ private:
 	//int rsteps;
 	int steps; //for move
 
-	
-
 public:
 	Fish(std::string _s = "norandom", glm::vec3 initialPosition = glm::vec3(1.0f, 1.0f, 1.0f), 
 		glm::vec3 initialRotation = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 initialScaling = glm::vec3(1.0f, 1.0f, 1.0f));
@@ -86,6 +84,21 @@ public:
 	void move(glm::vec3 coordinates);
 
 };
+
+class Plant : public Renderable
+{
+private:
+	float location[3];
+
+};
+
+class Other : public Renderable
+{
+private:
+	float location[3];
+
+};
+
 
 
 

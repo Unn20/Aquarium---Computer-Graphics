@@ -27,7 +27,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	std::vector< glm::vec3 > vertices;
 	std::vector< glm::vec2 > uvs;
 	std::vector< glm::vec3 > normals; // Won't be used at the moment.
-	bool res = loadOBJ("RYBA/fish.obj", vertices, uvs, normals);
+	bool res = loadOBJ("Models/fish.obj", vertices, uvs, normals);
 
 	VerticesNumber = vertices.size() * 3;
 
@@ -69,7 +69,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	TextureData = stbi_load("Textures/fish_texture.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
+	TextureData = stbi_load("Models/fish_texture.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
 	if (TextureData)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureData);
