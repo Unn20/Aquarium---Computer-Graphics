@@ -7,6 +7,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <vector>
+#include <ctime>  
+#include <cstdlib>
 
 #include "Lights.h"
 #include "Shader.h"
@@ -104,6 +106,8 @@ void drawScene(GLFWwindow *window)
 
 int main()
 {
+	srand(time(NULL));
+
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
