@@ -21,19 +21,19 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0E6AC496-79A8-4FCF-BED9-D5D4A626C2EE}</ProjectGuid>
     <RootNamespace>Aquarium</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -133,6 +133,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Lights.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Lights.h" />
     <ClInclude Include="Renderable.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
@@ -156,6 +158,9 @@
     <Image Include="Textures\clownfish.jpg" />
     <Image Include="Textures\gravel.jpg" />
     <Image Include="Textures\sand.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Aquarium.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
