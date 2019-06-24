@@ -12,6 +12,9 @@ Floor::Floor() : Length(LENGTH), Width(WIDTH)
 	glGenBuffers(3, VBO);
 	glGenBuffers(1, &EBO);
 
+	int VertexCount = 4;
+	int IndexCount = 6;
+
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
 	glBufferData(GL_ARRAY_BUFFER, VertexCount * 3 * sizeof(float), Vertices, GL_STATIC_DRAW);
@@ -20,7 +23,7 @@ Floor::Floor() : Length(LENGTH), Width(WIDTH)
 	glEnableVertexAttribArray(0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-	glBufferData(GL_ARRAY_BUFFER, VertexCount * 3 * sizeof(float), Colors, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, VertexCount * 3 * sizeof(float), Normals, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
@@ -59,12 +62,13 @@ Floor::Floor() : Length(LENGTH), Width(WIDTH)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
+		stbi_image_free(data);
 	}
 	else
 	{
 		std::cout << "Failed to load texture" << std::endl;
+		stbi_image_free(data);
 	}
-	stbi_image_free(data);
 };
 
 Floor::~Floor()
@@ -97,12 +101,10 @@ float Floor::Vertices[] =
 	0.5f, 0.0f, -0.5f,
 };
 
-float Floor::Colors[] =
+float Floor::Normals[] =
 {
-	1.0f, 0.0f, 1.0f,
-	1.0f, 0.0f, 0.0f,
-	0.0f, 0.0f, 1.0f,
-	0.0f , 1.0f, 0.0f,
+	0.0f, 1.0f, 0.0f,
+	0.0f, 1.0f, 0.0f
 };
 
 unsigned int Floor::Indexes[] =
@@ -112,16 +114,8 @@ unsigned int Floor::Indexes[] =
 
 float Floor::TextureVertices[] =
 {
-	/*0.0f, 0.0f,
-	0.0f, 1.0f,
-	1.0f, 1.0f,
-	1.0f, 0.0f*/
-
 	0.0f, 0.0f,
-	0.0f, 40.0f,
-	40.0f, 40.0f,
-	40.0f, 0.0f
+	0.0f, 80.0f,
+	80.0f, 80.0f,
+	80.0f, 0.0f
 };
-
-int Floor::VertexCount = VERTEXCOUNT;
-int Floor::IndexCount = INDEXCOUNT;
