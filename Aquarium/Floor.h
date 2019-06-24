@@ -7,8 +7,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 
-const int LENGTH = 10;	//Length of floor object
-const int WIDTH = 10;	//Width of floor object
+const int LENGTH = 17;	//Length of floor object
+const int WIDTH = 17;	//Width of floor object
 
 class Floor
 {
