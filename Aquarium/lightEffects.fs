@@ -35,9 +35,11 @@ out vec4 FragColor;
 in vec3 Normal;
 in vec3 FragPos;
 in vec2 TexCoords;
+in float visibility;
 
 uniform sampler2D ourTexture;
 uniform vec3 viewPos;
+uniform vec3 FogColor;
 
 uniform DirLight dirLight;
 //uniform Material material;
@@ -56,6 +58,7 @@ void main()
 	//result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
 
 	FragColor = texture(ourTexture, TexCoords) * vec4(result, 1.0);
+	FragColor = mix(vec4(FogColor,1.0),FragColor, visibility);
 }
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)

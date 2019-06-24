@@ -20,6 +20,7 @@
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+glm::vec3 CLEAR_COLOR = glm::vec3(0.2f, 0.3f, 0.3f);
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -48,7 +49,7 @@ float lastFrame = 0.0f;
 
 void initOpenGLProgram(GLFWwindow *window)
 {
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClearColor(CLEAR_COLOR.x, CLEAR_COLOR.y, CLEAR_COLOR.z, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 	glfwSetCursorPosCallback(window, mouseCallback);
@@ -89,6 +90,7 @@ void drawScene(GLFWwindow *window)
 	dShader->setMat4("view", view);
 	dShader->setMat4("projection", projection);
 	dShader->setMat4("model", model);
+	dShader->setVec3("FogColor", CLEAR_COLOR);
 
 	podloga_w->draw(dShader);
 
