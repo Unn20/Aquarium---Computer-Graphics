@@ -35,8 +35,9 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	std::vector< glm::vec3 > vertices;
 	std::vector< glm::vec2 > uvs;
 	std::vector< glm::vec3 > normals; // Won't be used at the moment.
-	std::string path_obj = "Models/" + my_fishes[number_of_model] + ".obj";
-	bool res = loadOBJ(path_obj.c_str(), vertices, uvs, normals);
+	//std::string path_obj = "Models/" + my_fishes[number_of_model] + ".obj";
+	//bool res = loadOBJ(path_obj.c_str(), vertices, uvs, normals);
+	bool res = loadOBJ("Models/TropicalFish01t.obj", vertices, uvs, normals);
 
 	VerticesNumber = vertices.size() * 3;
 
@@ -64,8 +65,10 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	std::string path_tex = "Models/" + my_fishes[number_of_model] + ".jpg";
-	TextureData = stbi_load(path_tex.c_str(), &TextureWidth, &TextureHeight, &nrChannels, 0);
+	//std::string path_tex = "Models/" + my_fishes[number_of_model] + ".jpg";
+	//TextureData = stbi_load(path_tex.c_str(), &TextureWidth, &TextureHeight, &nrChannels, 0);
+	TextureData = stbi_load("Models/TropicalFish01.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
+	
 	if (TextureData)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureData);
