@@ -9,7 +9,7 @@
 
 class DirLight
 {
-private:
+public:
 	glm::vec3 direction;
 
 	glm::vec3 ambient;
@@ -24,7 +24,7 @@ public:
 
 class SpotLight
 {
-private:
+public:
 	glm::vec3 position;
 	glm::vec3 direction;
 

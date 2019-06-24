@@ -166,6 +166,17 @@ int main()
 		drawScene(window);
 
 		glfwPollEvents();
+
+
+		//for lightning debug
+		/*
+		std::cout << "Direction Light parameters: " << std::endl;
+		std::cout << "ambient.r = " << lightDir->ambient.r << std::endl;
+		std::cout << "ambient.g = " << lightDir->ambient.g << std::endl;
+		std::cout << "ambient.b = " << lightDir->ambient.b << std::endl;
+		std::system("cls");
+		*/
+
 	}
 	freeOpenGLProgram(window);
 	glfwTerminate();
@@ -184,6 +195,20 @@ void processInput(GLFWwindow *window)
 		camera.ProcessKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
+
+	//for lightning debug
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+		lightDir->ambient.r += 0.01f;
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+		lightDir->ambient.r -= 0.01f;
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+		lightDir->ambient.g += 0.01f;
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+		lightDir->ambient.g -= 0.01f;
+	if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
+		lightDir->ambient.b += 0.01f;
+	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+		lightDir->ambient.b -= 0.01f;
 }
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
