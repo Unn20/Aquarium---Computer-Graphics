@@ -3,11 +3,11 @@
 
 DirLight::DirLight()
 {
-	ambient = glm::vec3(0.2f, 0.5f, 0.3f);
-	diffuse = glm::vec3(0.2f, 0.5f, 0.3f);
-	specular = glm::vec3(0.2f, 0.5f, 0.3f);
+	ambient = glm::vec3(31.0f, 181.0f, 198.0f) * glm::vec3(1.0f/255.0f, 1.0f/255.0f, 1.0f/255.0f);
+	diffuse = glm::vec3(13.0f, 56.0f, 71.0f) * glm::vec3(1.0f / 255.0f, 1.0f / 255.0f, 1.0f / 255.0f);
+	specular = glm::vec3(48.0f, 88.0f, 102.0f) * glm::vec3(1.0f / 255.0f, 1.0f / 255.0f, 1.0f / 255.0f);
 
-	direction = glm::vec3(0.0f, -10.0f, 0.0f);
+	direction = glm::vec3(0.0f, -10.0f, 0.2f);
 }
 
 DirLight::~DirLight()
@@ -28,13 +28,13 @@ void DirLight::apply(Shader *sp)
 
 SpotLight::SpotLight()
 {
-	position = glm::vec3(0.0f, 5.0f, 0.0f);
+	position = glm::vec3(0.0f, 10.0f, 0.0f);
 	direction = glm::vec3(0.0f, -1.0f, 0.0f);
 
 	cutOff = glm::cos(glm::radians(10.5f));
 	outerCutOff = glm::cos(glm::radians(12.0f));
 
-	ambient = glm::vec3(0.3f, 0.3f, 0.3f);
+	ambient = glm::vec3(0.2f, 0.2f, 0.2f);
 	diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
 	specular = glm::vec3(1.0f, 1.0f, 1.0f);
 

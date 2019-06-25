@@ -70,12 +70,14 @@ class Fish : public Renderable
 private:
 	float Velocity;
 	float RotateVelocity;
-	unsigned int VAO, VBO[2];
+	unsigned int VAO, VBO[3];
 
 	glm::vec3 wantToGo; //for move
-
 	int rsteps;
 	int steps; //for move
+
+	glm::vec2 AnglesBeetwen(glm::vec3 v1, glm::vec3 v2);
+	//float TotalAngle(glm::vec3 v1, glm::vec3 v2);
 
 public:
 	Fish(std::string _s = "norandom", glm::vec3 initialPosition = glm::vec3(1.0f, 1.0f, 1.0f), 
@@ -97,7 +99,7 @@ private:
 class Other : public Renderable
 {
 private:
-	unsigned int VAO, VBO[2];
+	unsigned int VAO, VBO[3];
 	float location[3];
 
 public:
