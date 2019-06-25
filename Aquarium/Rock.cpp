@@ -1,20 +1,23 @@
 #include "Renderable.h"
-
 #include "stb_image.h"
 
-Other::Other(std::string element_s, glm::vec3 initialPosition)
+Rock::Rock()
 {
 	Model = glm::mat4(1.0f);
 
+	float Y = random(0.1f, 0.4f);
+
+	x = random(-10.0f, 10.0f); y = Y/3; z = random(-10.0f, 10.0f);
+	sx = random(0.1f, 0.5f);  sy =Y; sz = random(0.1f, 0.5f);
+
 	std::vector< glm::vec3 > vertices;
 	std::vector< glm::vec2 > uvs;
-	std::vector< glm::vec3 > normals; // Won't be used at the moment.
-	std::string path_obj = "Models/" + element_s + ".obj";
+	std::vector< glm::vec3 > normals;
+
+	std::string path_obj = "Models/Rock01.obj";
 	bool res = loadOBJ(path_obj.c_str(), vertices, uvs, normals);
 
-	sx = 0.2f; sy = 0.2f; sz = 0.2f;
-
-	VerticesNumber = vertices.size() * 3;
+	VerticesNumber = vertices.size();
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(3, VBO);
@@ -46,9 +49,14 @@ Other::Other(std::string element_s, glm::vec3 initialPosition)
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//std::string path_tex = "Models/treasure.jpg";
-	std::string path_tex = "Models/" + element_s + ".jpg";
+	int textureNo = random(0, 1);
+	std::string path_tex;
+	if (textureNo == 0)
+		path_tex = "Models/Rock01.jpg";
+	else if (textureNo == 1)
+		path_tex = "Models/Rock02.jpg";
 	TextureData = stbi_load(path_tex.c_str(), &TextureWidth, &TextureHeight, &nrChannels, 0);
+
 	if (TextureData)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, TextureWidth, TextureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, TextureData);
@@ -61,7 +69,18 @@ Other::Other(std::string element_s, glm::vec3 initialPosition)
 	stbi_image_free(TextureData);
 }
 
-void Other::draw(Shader *sp)
+
+Rock::~Rock()
+{
+	//
+}
+
+void Rock::behave()
+{
+	//just be lol
+}
+
+void Rock::draw(Shader *sp)
 {
 	sp->use();
 	this->Model = glm::mat4(1.0f);
@@ -72,9 +91,4 @@ void Other::draw(Shader *sp)
 	glBindTexture(GL_TEXTURE_2D, Texture);
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, VerticesNumber);
-}
-
-void Other::behave()
-{
-
 }

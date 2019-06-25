@@ -63,6 +63,9 @@
     <ClCompile Include="other.cpp">
       <Filter>Source Files\Renderables</Filter>
     </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Source Files\Renderables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="normal.fs">

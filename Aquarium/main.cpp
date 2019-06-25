@@ -7,7 +7,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <vector>
-#include <ctime>  
 #include <cstdlib>
 
 #include "Lights.h"
@@ -20,6 +19,8 @@
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+const int FRAMES_PER_SECOND = 120;
+const int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 glm::vec3 CLEAR_COLOR = glm::vec3(0.2f, 0.3f, 0.3f);
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -36,9 +37,20 @@ std::vector<Renderable*> table;
 DirLight *lightDir;
 SpotLight *lightSpot;
 
+<<<<<<< HEAD
 int objNum = 50;
 int number_of_grass = 10;
 int all_objects = objNum + number_of_grass + 1;
+=======
+int fishNum = 100;
+int rockNum = 20;
+
+int objNum = fishNum + rockNum;
+
+
+bool enableF = 1, enableD = 1, enableS = 1;
+float KEY_PRESS = 0.0;
+>>>>>>> 72eb1efed5e62a905b64c6832e1a7a3ef103111d
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -94,7 +106,10 @@ void drawScene(GLFWwindow *window)
 	dShader->setMat4("model", model);
 	dShader->setVec3("FogColor", CLEAR_COLOR);
 
-	dShader->setBool("enableFog", 1);
+	dShader->setBool("enableFog", enableF);
+	dShader->setBool("enableDirLight", enableD);
+	dShader->setBool("enableSpotLight", enableS);
+
 	podloga_w->draw(dShader);
 
 	for (int i = 0; i < objNum; i++)
@@ -118,8 +133,6 @@ void drawScene(GLFWwindow *window)
 
 int main()
 {
-	srand(time(NULL));
-
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -154,15 +167,22 @@ int main()
 	lightSpot = &light321;
 
 
-	for (int i = 0; i < objNum; i++)
+	for (int i = 0; i < fishNum; i++)
 	{
 		Fish *rryba = new Fish("random");
 		table.push_back(rryba);
 	}
 
+	for (int i = 0; i < rockNum; i++)
+	{
+		Rock *sskala = new Rock();
+		table.push_back(sskala);
+	}
+
 	Other *treasure = new Other("treasure", glm::vec3(1.0f, 1.0f, 1.0f));
 	table.push_back(treasure);
 
+<<<<<<< HEAD
 	for (int i = 1; i < number_of_grass; i++)
 	{
 		
@@ -173,6 +193,10 @@ int main()
 	dShader->use();
 	dShader->setInt("material.diffuse", 0);
 	dShader->setInt("material.specular", 1);
+=======
+	DWORD next_game_tick = GetTickCount();
+	int sleep_time = 0;
+>>>>>>> 72eb1efed5e62a905b64c6832e1a7a3ef103111d
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -186,16 +210,12 @@ int main()
 
 		glfwPollEvents();
 
-
-		//for lightning debug
-		/*
-		std::cout << "Direction Light parameters: " << std::endl;
-		std::cout << "ambient.r = " << lightDir->ambient.r << std::endl;
-		std::cout << "ambient.g = " << lightDir->ambient.g << std::endl;
-		std::cout << "ambient.b = " << lightDir->ambient.b << std::endl;
-		std::system("cls");
-		*/
-
+		next_game_tick += SKIP_TICKS;
+		sleep_time = next_game_tick - GetTickCount();
+		if (sleep_time >= 0) 
+		{
+			Sleep(sleep_time);
+		}
 	}
 	freeOpenGLProgram(window);
 	glfwTerminate();
@@ -204,30 +224,58 @@ int main()
 
 void processInput(GLFWwindow *window)
 {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, deltaTime);
+	if (glfwGetTime() - KEY_PRESS > 0.35)
+	{
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(window, true);
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			camera.ProcessKeyboard(FORWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			camera.ProcessKeyboard(BACKWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			camera.ProcessKeyboard(LEFT, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			camera.ProcessKeyboard(RIGHT, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS)
+		{
+			enableF = !enableF; KEY_PRESS = glfwGetTime();
+		}
+		if (glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS)
+		{
+			enableS = !enableS; KEY_PRESS = glfwGetTime();
+		}
+		if (glfwGetKey(window, GLFW_KEY_F3) == GLFW_PRESS)
+		{
+			enableD = !enableD; KEY_PRESS = glfwGetTime();
+		}
+	}
 
-	//for lightning debug
-	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		lightDir->ambient.r += 0.01f;
-	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-		lightDir->ambient.r -= 0.01f;
-	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
-		lightDir->ambient.g += 0.01f;
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
-		lightDir->ambient.g -= 0.01f;
-	if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
-		lightDir->ambient.b += 0.01f;
-	if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-		lightDir->ambient.b -= 0.01f;
+		//for lightning debug
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+			lightSpot->position.y += 0.1f;
+		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+			lightSpot->position.y -= 0.1f;
+		if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+			lightSpot->cutOff += 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+			lightSpot->cutOff -= 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
+			lightSpot->outerCutOff += 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+			lightSpot->outerCutOff -= 0.01f;
+
+		if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+			lightDir->ambient.r += 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+			lightDir->ambient.r -= 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+			lightDir->ambient.g += 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+			lightDir->ambient.g -= 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+			lightDir->ambient.b += 0.01f;
+		if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+			lightDir->ambient.b -= 0.01f;
 }
 
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
