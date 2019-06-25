@@ -41,6 +41,8 @@ uniform sampler2D ourTexture;
 uniform vec3 viewPos;
 uniform vec3 FogColor;
 uniform bool enableFog;
+uniform bool enableDirLight;
+uniform bool enableSpotLight;
 
 
 uniform DirLight dirLight;
@@ -55,9 +57,13 @@ void main()
 {
 	vec3 norm = normalize(Normal);
 	vec3 viewDir = normalize(viewPos - FragPos);
+	vec3 result = vec3(1.0, 1.0, 1.0);
 
-	vec3 result = CalcDirLight(dirLight, norm, viewDir);
-	result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
+	if (enableDirLight)
+		result *= CalcDirLight(dirLight, norm, viewDir);
+
+	if (enableSpotLight)
+		result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
 
 	FragColor = texture(ourTexture, TexCoords) * vec4(result, 1.0);
 
