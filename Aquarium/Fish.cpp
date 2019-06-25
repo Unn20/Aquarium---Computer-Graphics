@@ -37,7 +37,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	std::vector< glm::vec3 > normals; // Won't be used at the moment.
 	//std::string path_obj = "Models/" + my_fishes[number_of_model] + ".obj";
 	//bool res = loadOBJ(path_obj.c_str(), vertices, uvs, normals);
-	bool res = loadOBJ("Models/TropicalFish01t.obj", vertices, uvs, normals);
+	bool res = loadOBJ("Models/TropicalFish01.obj", vertices, uvs, normals);
 
 	VerticesNumber = vertices.size() * 3;
 

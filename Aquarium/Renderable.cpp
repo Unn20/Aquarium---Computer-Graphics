@@ -34,6 +34,7 @@ bool Renderable::loadOBJ(
 	std::vector< glm::vec3 > temp_vertices;
 	std::vector< glm::vec2 > temp_uvs;
 	std::vector< glm::vec3 > temp_normals;
+	int vert_max = 0;
 
 	FILE * file = fopen(path, "r");
 	if (file == NULL) {
@@ -51,6 +52,12 @@ bool Renderable::loadOBJ(
 		if (strcmp(lineHeader, "v") == 0) {
 			glm::vec3 vertex;
 			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
+			if (vertex.x > vert_max)
+				vert_max = vertex.x;
+			if (vertex.y > vert_max)
+				vert_max = vertex.y;
+			if (vertex.z > vert_max)
+				vert_max = vertex.z;
 			temp_vertices.push_back(vertex);
 		}
 		else if (strcmp(lineHeader, "vt") == 0) {
@@ -83,10 +90,10 @@ bool Renderable::loadOBJ(
 			normalIndices.push_back(normalIndex[2]);
 		}
 	}
+	glm::vec3 vert_max_glm = glm::vec3(vert_max, vert_max, vert_max);
 	for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 		unsigned int vertexIndex = vertexIndices[i];
-		glm::vec3 vertex = temp_vertices[vertexIndex - 1];
-		vertex = glm::normalize(vertex);
+		glm::vec3 vertex = (temp_vertices[vertexIndex - 1])/vert_max_glm;
 		out_vertices.push_back(vertex);
 	}
 
@@ -100,7 +107,7 @@ bool Renderable::loadOBJ(
 	for (unsigned int i = 0; i < uvIndices.size(); i++) {
 		unsigned int uvIndex = uvIndices[i];
 		glm::vec2 uv = temp_uvs[uvIndex - 1];
-		uv = glm::normalize(uv);
+		//uv = glm::normalize(uv);
 		out_uvs.push_back(uv);
 	}
 	
