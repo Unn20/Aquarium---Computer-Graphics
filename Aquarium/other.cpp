@@ -5,8 +5,6 @@
 Other::Other(std::string element_s, glm::vec3 initialPosition)
 {
 	Model = glm::mat4(1.0f);
-	
-	//steps = 0;
 
 	std::vector< glm::vec3 > vertices;
 	std::vector< glm::vec2 > uvs;
@@ -65,6 +63,7 @@ void Other::draw(Shader *sp)
 	sp->use();
 	this->Model = glm::mat4(1.0f);
 	this->Model = glm::translate(this->Model, glm::vec3(x, y, z));
+	this->Model = glm::scale(this->Model, glm::vec3(0.2f, 0.2f, 0.2f));
 	sp->setMat4("model", this->Model);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture);

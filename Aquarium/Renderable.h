@@ -1,7 +1,6 @@
 #ifndef RENDERABLE_H
 #define RENDERABLE_H
 
-#include <iostream>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,8 +13,9 @@ extern std::mt19937 gen;
 
 //Maximum area where "renderables" may move
 const float MAX_X = 16.0f;
-const float MAX_Y = 3.5f;
+const float MAX_Y = 7.5f;
 const float MAX_Z = 16.0f;
+const float MIN_Y = 2.5f;
 
 
 class Renderable
@@ -25,11 +25,6 @@ protected:
 	float x, y, z;	//position of object
 	float rx, ry, rz;	//rotation angle of object
 	float sx, sy, sz;	//scale of object
-
-	//static float Vertices[];
-	//static float Colors[];
-	//static float TextureVertices[];
-	//static unsigned int Indexes[];
 
 	unsigned char *TextureData;
 	int TextureWidth, TextureHeight, nrChannels;
@@ -77,7 +72,6 @@ private:
 	int steps; //for move
 
 	glm::vec2 AnglesBeetwen(glm::vec3 v1, glm::vec3 v2);
-	//float TotalAngle(glm::vec3 v1, glm::vec3 v2);
 
 public:
 	Fish(std::string _s = "norandom", glm::vec3 initialPosition = glm::vec3(1.0f, 1.0f, 1.0f), 
@@ -86,7 +80,6 @@ public:
 	void draw(Shader *sp);
 	void behave();
 	void move(glm::vec3 coordinates);
-
 };
 
 class Plant : public Renderable
