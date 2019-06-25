@@ -136,6 +136,7 @@
     <ClCompile Include="other.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -12,9 +12,9 @@
 extern std::mt19937 gen;
 
 //Maximum area where "renderables" may move
-const float MAX_X = 16.0f;
+const float MAX_X = 15.0f;
 const float MAX_Y = 7.5f;
-const float MAX_Z = 16.0f;
+const float MAX_Z = 15.0f;
 const float MIN_Y = 2.5f;
 
 
@@ -100,6 +100,17 @@ public:
 	void draw(Shader *sp);
 	void behave();
 
+};
+
+class Rock : public Renderable
+{
+private:
+	unsigned int VAO, VBO[3];
+public:
+	Rock();
+	~Rock();
+	void draw(Shader *sp);
+	void behave();
 };
 
 
