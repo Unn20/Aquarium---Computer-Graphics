@@ -39,7 +39,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	std::vector< glm::vec3 > normals; // Won't be used at the moment.
 	//std::string path_obj = "Models/" + my_fishes[number_of_model] + ".obj";
 	//bool res = loadOBJ(path_obj.c_str(), vertices, uvs, normals);
-	bool res = loadOBJ("Models/TropicalFish03.obj", vertices, uvs, normals);
+	bool res = loadOBJ("Models/TropicalFish02.obj", vertices, uvs, normals);
 
 	VerticesNumber = vertices.size() * 3;
 
@@ -69,7 +69,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	//std::string path_tex = "Models/" + my_fishes[number_of_model] + ".jpg";
 	//TextureData = stbi_load(path_tex.c_str(), &TextureWidth, &TextureHeight, &nrChannels, 0);
-	TextureData = stbi_load("Models/TropicalFish03.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
+	TextureData = stbi_load("Models/TropicalFish02.jpg", &TextureWidth, &TextureHeight, &nrChannels, 0);
 	
 	if (TextureData)
 	{
