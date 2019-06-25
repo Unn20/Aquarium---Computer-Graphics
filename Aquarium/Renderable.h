@@ -69,10 +69,12 @@ class Fish : public Renderable
 {
 private:
 	float Velocity;
+	float RotateVelocity;
 	unsigned int VAO, VBO[2];
 
 	glm::vec3 wantToGo; //for move
-	//int rsteps;
+
+	int rsteps;
 	int steps; //for move
 
 public:

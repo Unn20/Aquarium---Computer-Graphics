@@ -19,6 +19,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 		rx = initialRotation.x; ry = initialRotation.y, rz = initialRotation.z;
 		sx = initialScaling.x; sy = initialScaling.y; sz = initialScaling.z;
 		Velocity = 0.01f;
+		RotateVelocity = 10.0f;
 		
 	}
 	else if (_s == "random")
@@ -29,6 +30,7 @@ Fish::Fish(std::string _s, glm::vec3 initialPosition, glm::vec3 initialRotation,
 		float scale = 1.0f;
 		sx = scale;  sy = scale; sz = scale;
 		Velocity = 0.01f;
+		RotateVelocity = 10.0f;
 	}
 	steps = 0;
 
@@ -113,7 +115,9 @@ void Fish::behave()
 	{
 		//Sleep(random(10, 100));
 		wantToGo = glm::vec3(random(-MAX_X, MAX_X), random(1.0f, MAX_Y), random(-MAX_Z, MAX_Z));
+		glm::vec3 directionToGo = wantToGo - glm::vec3(x, y, z);
 		steps = round(distance(wantToGo, glm::vec3(x, y, z)) / Velocity);
+		//rsteps = 
 		//std::cout << "Want to go: " << wantToGo.x << ", " << wantToGo.y << ", " << wantToGo.z << std::endl;
 	}
 	else
@@ -130,6 +134,13 @@ void Fish::move(glm::vec3 coordinates)
 	x += (coordinates.x - x) / dist * Velocity;
 	y += (coordinates.y - y) / dist * Velocity;
 	z += (coordinates.z - z) / dist * Velocity;
+
+	if (rsteps > 0)
+	{
+
+
+		rsteps--;
+	}
 
 }
 

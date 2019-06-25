@@ -102,8 +102,8 @@ void drawScene(GLFWwindow *window)
 		object->draw(dShader);
 	}
 	// creating a treasure 
-	object = table[objNum];
-	object->draw(dShader);
+	//object = table[objNum];
+	//object->draw(dShader);
 	glfwSwapBuffers(window);
 }
 
