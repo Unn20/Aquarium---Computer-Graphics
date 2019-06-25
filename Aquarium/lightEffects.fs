@@ -53,10 +53,10 @@ void main()
 	vec3 result = vec3(1.0, 1.0, 1.0);
 
 	if (enableDirLight)
-		result *= CalcDirLight(dirLight, norm, viewDir);
+		result *= 0.5 * CalcDirLight(dirLight, norm, viewDir);
 
 	if (enableSpotLight)
-		result += CalcSpotLight(spotLight, norm, FragPos, viewDir);    
+		result += 2.0 * CalcSpotLight(spotLight, norm, FragPos, viewDir);    
 
 	FragColor = texture(ourTexture, TexCoords) * vec4(result, 1.0);
 
@@ -102,5 +102,5 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     ambient *= attenuation * intensity;
     diffuse *= attenuation * intensity;
     specular *= attenuation * intensity;
-    return (ambient + diffuse + specular);
+    return (0.3*ambient + diffuse + specular);
 }

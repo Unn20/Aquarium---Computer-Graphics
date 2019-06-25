@@ -117,6 +117,7 @@ void Fish::behave()
 	if (steps == 0)
 	{
 		wantToGo = glm::vec3(random(-MAX_X, MAX_X), random(MIN_Y, MAX_Y), random(-MAX_Z, MAX_Z));
+		Velocity = random(0.01f, 0.05f);
 		glm::vec3 directionToGo = wantToGo - glm::vec3(x, y, z);
 		steps = round(distance(wantToGo, glm::vec3(x, y, z)) / Velocity);
 
