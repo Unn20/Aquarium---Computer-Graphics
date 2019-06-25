@@ -37,6 +37,8 @@ DirLight *lightDir;
 SpotLight *lightSpot;
 
 int objNum = 50;
+int number_of_grass = 10;
+int all_objects = objNum + number_of_grass + 1;
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -105,6 +107,13 @@ void drawScene(GLFWwindow *window)
 	object = table[objNum];
 	object->draw(dShader);
 	glfwSwapBuffers(window);
+	// creating a grass
+	
+	/*for (int i = 1; i < number_of_grass; i++) {
+		object = table[objNum + i];
+		object->draw(dShader);
+		glfwSwapBuffers(window);
+	}*/
 }
 
 int main()
@@ -153,6 +162,13 @@ int main()
 
 	Other *treasure = new Other("treasure", glm::vec3(1.0f, 1.0f, 1.0f));
 	table.push_back(treasure);
+
+	for (int i = 1; i < number_of_grass; i++)
+	{
+		
+		//Other *grass = new Other("grass", glm::vec3(-6.0f, 1.0f, -1.0f));
+		//table.push_back(grass);
+	}
 
 	dShader->use();
 	dShader->setInt("material.diffuse", 0);
