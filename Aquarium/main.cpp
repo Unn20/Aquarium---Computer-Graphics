@@ -37,11 +37,6 @@ std::vector<Renderable*> table;
 DirLight *lightDir;
 SpotLight *lightSpot;
 
-<<<<<<< HEAD
-int objNum = 50;
-int number_of_grass = 10;
-int all_objects = objNum + number_of_grass + 1;
-=======
 int fishNum = 100;
 int rockNum = 20;
 
@@ -50,7 +45,6 @@ int objNum = fishNum + rockNum;
 
 bool enableF = 1, enableD = 1, enableS = 1;
 float KEY_PRESS = 0.0;
->>>>>>> 72eb1efed5e62a905b64c6832e1a7a3ef103111d
 
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -122,13 +116,6 @@ void drawScene(GLFWwindow *window)
 	object = table[objNum];
 	object->draw(dShader);
 	glfwSwapBuffers(window);
-	// creating a grass
-	
-	/*for (int i = 1; i < number_of_grass; i++) {
-		object = table[objNum + i];
-		object->draw(dShader);
-		glfwSwapBuffers(window);
-	}*/
 }
 
 int main()
@@ -182,21 +169,8 @@ int main()
 	Other *treasure = new Other("treasure", glm::vec3(1.0f, 1.0f, 1.0f));
 	table.push_back(treasure);
 
-<<<<<<< HEAD
-	for (int i = 1; i < number_of_grass; i++)
-	{
-		
-		//Other *grass = new Other("grass", glm::vec3(-6.0f, 1.0f, -1.0f));
-		//table.push_back(grass);
-	}
-
-	dShader->use();
-	dShader->setInt("material.diffuse", 0);
-	dShader->setInt("material.specular", 1);
-=======
 	DWORD next_game_tick = GetTickCount();
 	int sleep_time = 0;
->>>>>>> 72eb1efed5e62a905b64c6832e1a7a3ef103111d
 
 	while (!glfwWindowShouldClose(window))
 	{

@@ -9,7 +9,7 @@ Other::Other(std::string element_s, glm::vec3 initialPosition)
 	std::vector< glm::vec3 > vertices;
 	std::vector< glm::vec2 > uvs;
 	std::vector< glm::vec3 > normals; // Won't be used at the moment.
-	std::string path_obj = "Models/" + element_s + ".obj";
+	std::string path_obj = "Models/treasure.obj";
 	bool res = loadOBJ(path_obj.c_str(), vertices, uvs, normals);
 
 	sx = 0.2f; sy = 0.2f; sz = 0.2f;
@@ -46,8 +46,7 @@ Other::Other(std::string element_s, glm::vec3 initialPosition)
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//std::string path_tex = "Models/treasure.jpg";
-	std::string path_tex = "Models/" + element_s + ".jpg";
+	std::string path_tex = "Models/treasure.jpg";
 	TextureData = stbi_load(path_tex.c_str(), &TextureWidth, &TextureHeight, &nrChannels, 0);
 	if (TextureData)
 	{
