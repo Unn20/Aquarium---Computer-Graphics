@@ -1,4 +1,5 @@
-/*	Authors:
+/*	Poznan University of Technology, 26.06.2019
+	Authors:
 	Maciej Leszczyk
 	Beata Baczyńska		*/
 
